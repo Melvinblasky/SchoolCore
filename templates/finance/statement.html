@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h2>
+            Student Fee Statement
+        </h2>
+
+        <hr>
+
+        <p>
+
+            <strong>Name:</strong>
+
+            {{ student.first_name }}
+            {{ student.last_name }}
+
+        </p>
+
+        <p>
+
+            <strong>Admission Number:</strong>
+
+            {{ student.admission_number }}
+
+        </p>
+
+        <p>
+
+            <strong>Class:</strong>
+
+            {{ student.classroom }}
+
+        </p>
+
+         <p>
+            <strong>Session:</strong>
+            {{ session }}
+        </p>
+
+        <p>
+            <strong>Term:</strong>
+            {{ term }}
+        </p>
+
+        <hr>
+
+        <table class="table table-bordered">
+
+            <tr>
+
+                <th>
+                    School Fee
+                </th>
+
+                <td>
+
+                    ₦{{ total_fee }}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Amount Paid
+                </th>
+
+                <td>
+
+                    ₦{{ amount_paid }}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Balance
+                </th>
+
+                <td>
+
+                    ₦{{ balance }}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Status
+                </th>
+
+                <td>
+
+                    {{ status }}
+
+                </td>
+
+            </tr>
+
+        </table>
+   
+         <hr>
+
+<h3>
+    Payment History
+</h3>
+
+<table class="table table-bordered">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Date</th>
+
+            <th>Session</th>
+
+            <th>Term</th>
+
+            <th>Amount Paid</th>
+
+            <th>Reference</th>
+
+            <th>Receipt</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for payment in payments %}
+
+        <tr>
+
+            <td>
+                {{ payment.payment_date }}
+            </td>
+
+            <td>
+                {{ payment.session }}
+            </td>
+
+            <td>
+                {{ payment.term }}
+            </td>
+
+            <td>
+                ₦{{ payment.amount_paid }}
+            </td>
+
+            <td>
+                {{ payment.reference }}
+            </td>
+
+            <td>
+
+                <a
+                    href="{% url 'payment_receipt' payment.id %}"
+                    class="btn btn-sm btn-success"
+                >
+                    Receipt
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="6">
+
+                No payment history found.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+        <a
+            href="{% url 'student_detail' student.id %}"
+            class="btn btn-primary"
+        >
+            Back To Student
+        </a>
+        
+        {% if payment %}
+
+        <a
+            href="{% url 'payment_receipt' payment.id %}"
+            class="btn btn-primary"
+        >
+            Print Receipt
+        </a>
+
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,454 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <!-- SCHOOL HEADER -->
+
+            <div class="text-center mb-4">
+
+                <h2 class="fw-bold">
+                    SCHOOLCORE INTERNATIONAL SCHOOL
+                </h2>
+
+                <h4>
+                    STUDENT REPORT CARD
+                </h4>
+
+            </div>
+
+            <hr>
+
+            <!-- STUDENT DETAILS -->
+
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <p>
+                        <strong>Name:</strong>
+                        {{ student.first_name }}
+                        {{ student.last_name }}
+                    </p>
+
+                    <p>
+                        <strong>Admission Number:</strong>
+                        {{ student.admission_number }}
+                    </p>
+
+                    <p>
+                        <strong>Class:</strong>
+                        {{ student.classroom }}
+                    </p>
+
+                    <p>
+                        <strong>Gender:</strong>
+                        {{ student.gender }}
+                    </p>
+
+                    <p>
+                        <strong>Date of Birth:</strong>
+                        {{ student.date_of_birth }}
+                    </p>
+
+                    <p>
+                        <strong>Class Position:</strong>
+                        {{ position_display }}
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 text-end">
+
+                    {% if student.passport %}
+
+                    <img
+                        src="{{ student.passport.url }}"
+                        alt="Passport"
+                        width="120"
+                        height="120"
+                        class="img-thumbnail"
+                    >
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- ACADEMIC RESULTS -->
+
+            <table class="table table-bordered table-striped">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Subject</th>
+                        <th>CA</th>
+                        <th>Exam</th>
+                        <th>Total</th>
+                        <th>Grade</th>
+                        <th>Remark</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for result in results %}
+
+                    <tr>
+
+                        <td>{{ result.subject }}</td>
+
+                        <td>{{ result.ca_score }}</td>
+
+                        <td>{{ result.exam_score }}</td>
+
+                        <td>{{ result.total_score }}</td>
+
+                        <td>{{ result.grade }}</td>
+
+                        <td>{{ result.remark }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            No results available.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <!-- REPORT SUMMARY -->
+
+            <hr>
+
+            <h3 class="mb-3">
+                Report Summary
+            </h3>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <div class="card bg-primary text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Total Score</h6>
+
+                            <h3>{{ total_score }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-success text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Average Score</h6>
+
+                            <h3>
+                                {{ average|floatformat:2 }}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-warning">
+
+                        <div class="card-body text-center">
+
+                            <h6>Total Subjects</h6>
+
+                            <h3>{{ total_subjects }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-info text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Position</h6>
+
+                            <h3>{{ position_display }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ATTENDANCE SUMMARY -->
+
+            <hr>
+
+            <h3 class="mb-3">
+                Attendance Summary
+            </h3>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <div class="card bg-success text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Present</h6>
+
+                            <h3>{{ present_days }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-danger text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Absent</h6>
+
+                            <h3>{{ absent_days }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-warning">
+
+                        <div class="card-body text-center">
+
+                            <h6>Late</h6>
+
+                            <h3>{{ late_days }}</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card bg-info text-white">
+
+                        <div class="card-body text-center">
+
+                            <h6>Attendance %</h6>
+
+                            <h3>
+                                {{ attendance_percentage }}%
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% if attendance_percentage >= 90 %}
+
+                <div class="alert alert-success mt-3">
+
+                    Excellent Attendance
+
+                </div>
+
+            {% elif attendance_percentage >= 75 %}
+
+                <div class="alert alert-info mt-3">
+
+                    Good Attendance
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-danger mt-3">
+
+                    Attendance Needs Improvement
+
+                </div>
+
+            {% endif %}
+
+            <!-- ACADEMIC STATUS -->
+
+            <hr>
+
+            <h3>
+                Academic Status
+            </h3>
+
+            {% if average >= 70 %}
+
+                <div class="alert alert-success">
+
+                    Excellent Performance
+
+                </div>
+
+            {% elif average >= 60 %}
+
+                <div class="alert alert-info">
+
+                    Very Good Performance
+
+                </div>
+
+            {% elif average >= 50 %}
+
+                <div class="alert alert-warning">
+
+                    Good Performance
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-danger">
+
+                    Needs Improvement
+
+                </div>
+
+            {% endif %}
+
+            <!-- COMMENTS -->
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <h5>
+                        Class Teacher's Comment
+                    </h5>
+
+                    <div class="border rounded p-3">
+
+                        Continue to work hard and maintain
+                        excellent study habits.
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h5>
+                        Principal's Comment
+                    </h5>
+
+                    <div class="border rounded p-3">
+
+                        Excellent effort. Keep striving
+                        for academic excellence.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SIGNATURES -->
+
+            <div class="row mt-5">
+
+                <div class="col-md-6 text-center">
+
+                    <p>
+                        ______________________
+                    </p>
+
+                    <h6>
+                        Class Teacher
+                    </h6>
+
+                </div>
+
+                <div class="col-md-6 text-center">
+
+                    <p>
+                        ______________________
+                    </p>
+
+                    <h6>
+                        Principal
+                    </h6>
+
+                </div>
+
+            </div>
+
+            <!-- PRINT BUTTON -->
+
+            <div class="text-center mt-4">
+
+                <button
+                    onclick="window.print()"
+                    class="btn btn-primary"
+                >
+                    Print Report Card
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

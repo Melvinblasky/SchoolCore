@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="card bg-primary text-white mb-3">
+            <div class="card-body">
+                <h5>Total Students</h5>
+                <h2>{{ students_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white mb-3">
+            <div class="card-body">
+                <h5>Total Teachers</h5>
+                <h2>{{ teachers_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning mb-3">
+            <div class="card-body">
+                <h5>Total Classes</h5>
+                <h2>{{ classes_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-danger text-white mb-3">
+            <div class="card-body">
+                <h5>Total Subjects</h5>
+                <h2>{{ subjects_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

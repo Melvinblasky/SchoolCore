@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        💰 Finance Dashboard
+    </h2>
+
+    <div class="mb-3">
+
+        <strong>Session:</strong>
+        {{ session }}
+
+        <br>
+
+        <strong>Term:</strong>
+        {{ term }}
+
+    </div>
+
+    <!-- FINANCE MENU -->
+
+    <div class="dropdown mb-4">
+
+        <button
+            class="btn btn-dark dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+        >
+            📊 Finance Menu
+        </button>
+
+        <ul class="dropdown-menu">
+
+            <li>
+
+                <a
+                    class="dropdown-item"
+                    href="{% url 'class_fee_view' %}"
+                >
+                    View Class Fees
+                </a>
+
+            </li>
+
+            <li>
+
+                <a
+                    class="dropdown-item"
+                    href="{% url 'payment_create' %}"
+                >
+                    Record Payment
+                </a>
+
+            </li>
+
+            <li>
+
+                <a
+                    class="dropdown-item"
+                    href="{% url 'debtors_list' %}"
+                >
+                    Debtors List
+                </a>
+
+            </li>
+
+            <li>
+
+                <a
+                    class="dropdown-item"
+                    href="{% url 'export_payments_excel' %}"
+                >
+                    Export Payments
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card bg-primary text-white h-100">
+
+                <div class="card-body text-center">
+
+                    <h5>
+                        Expected Revenue
+                    </h5>
+
+                    <h3>
+                        ₦{{ total_expected }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card bg-success text-white h-100">
+
+                <div class="card-body text-center">
+
+                    <h5>
+                        Collected Revenue
+                    </h5>
+
+                    <h3>
+                        ₦{{ total_collected }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card bg-danger text-white h-100">
+
+                <div class="card-body text-center">
+
+                    <h5>
+                        Outstanding Balance
+                    </h5>
+
+                    <h3>
+                        ₦{{ outstanding_balance }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+
+    <hr>
+
+    <h5 class="mb-3">
+        Quick Actions
+    </h5>
+
+    <div class="d-flex flex-wrap gap-2">
+
+        <a
+            href="{% url 'payment_create' %}"
+            class="btn btn-success"
+        >
+            ➕ Record Payment
+        </a>
+
+        <a
+            href="{% url 'debtors_list' %}"
+            class="btn btn-warning"
+        >
+            📋 Debtors List
+        </a>
+
+        <a
+            href="{% url 'class_fee_view' %}"
+            class="btn btn-info text-white"
+        >
+            🏫 View Class Fees
+        </a>
+
+        <a
+            href="{% url 'export_payments_excel' %}"
+            class="btn btn-secondary"
+        >
+            📊 Export Payments Excel
+        </a>
+     
+        <a
+            href="{% url 'class_fee_management' %}"
+            class="btn btn-info text-white"
+        >
+            Manage Class Fees
+        </a>
+        
+    </div>
+
+</div>
+
+{% endblock %}

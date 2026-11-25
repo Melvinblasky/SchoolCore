@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <div class="text-center mb-4">
+
+                <h2>
+                    SCHOOLCORE INTERNATIONAL SCHOOL
+                </h2>
+
+                <h4>
+                    PAYMENT RECEIPT
+                </h4>
+
+            </div>
+
+            <hr>
+
+            <table class="table table-bordered">
+
+                <tr>
+
+                    <th>
+                        Student Name
+                    </th>
+
+                    <td>
+
+                        {{ payment.student.first_name }}
+                        {{ payment.student.last_name }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Admission Number
+                    </th>
+
+                    <td>
+
+                        {{ payment.student.admission_number }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Session
+                    </th>
+
+                    <td>
+
+                        {{ payment.session }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Term
+                    </th>
+
+                    <td>
+
+                        {{ payment.term }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Amount Paid
+                    </th>
+
+                    <td>
+
+                        ₦{{ payment.amount_paid }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Reference Number
+                    </th>
+
+                    <td>
+
+                        {{ payment.reference }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>
+                        Payment Date
+                    </th>
+
+                    <td>
+
+                        {{ payment.payment_date }}
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <div class="text-center mt-4">
+
+                <button
+                    onclick="window.print()"
+                    class="btn btn-primary"
+                >
+                    Print Receipt
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

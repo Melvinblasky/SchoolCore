@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Class Fee Management
+
+</h2>
+
+<a
+    href="{% url 'fee_create' %}"
+    class="btn btn-success mb-3"
+>
+    Add New Fee
+</a>
+
+<table class="table table-bordered">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Class</th>
+
+            <th>Session</th>
+
+            <th>Term</th>
+
+            <th>Amount</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for fee in fees %}
+
+        <tr>
+
+            <td>
+                {{ fee.classroom }}
+            </td>
+
+            <td>
+                {{ fee.session }}
+            </td>
+
+            <td>
+                {{ fee.term }}
+            </td>
+
+            <td>
+                ₦{{ fee.amount }}
+            </td>
+
+            <td>
+
+                <a
+                    href="{% url 'fee_update' fee.id %}"
+                    class="btn btn-warning btn-sm"
+                >
+                    Edit
+                </a>
+
+                <a
+                    href="{% url 'fee_delete' fee.id %}"
+                    class="btn btn-danger btn-sm"
+                >
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="5">
+
+                No fee structure found.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

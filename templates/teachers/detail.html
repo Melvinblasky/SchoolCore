@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h2>
+            {{ teacher.first_name }}
+            {{ teacher.last_name }}
+        </h2>
+
+        <hr>
+
+        <p>
+            <strong>Employee ID:</strong>
+            {{ teacher.employee_id }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ teacher.email }}
+        </p>
+
+        <p>
+            <strong>Phone:</strong>
+            {{ teacher.phone }}
+        </p>
+
+        <p>
+            <strong>Date Employed:</strong>
+            {{ teacher.date_employed }}
+        </p>
+
+        <hr>
+
+        <h4>Assigned Subjects</h4>
+
+        <ul>
+
+            {% for subject in teacher.subject.all %}
+
+            <li>
+                {{ subject.name }}
+            </li>
+
+            {% empty %}
+
+            <li>No subject assigned.</li>
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <h4>Assigned Classes</h4>
+
+        <ul>
+
+            {% for classroom in teacher.classes.all %}
+
+            <li>
+                {{ classroom.name }}
+            </li>
+
+            {% empty %}
+
+            <li>No class assigned.</li>
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <div class="mt-3">
+
+            <a
+                href="{% url 'teacher_dashboard' teacher.id %}"
+                class="btn btn-success"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{% url 'teacher_list' %}"
+                class="btn btn-secondary"
+            >
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

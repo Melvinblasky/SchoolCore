@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Bulk Result Entry</h2>
+
+<!-- CLASS SELECTOR -->
+
+<form method="GET" class="mb-4">
+
+    <label>Select Class</label>
+
+    <select
+        name="class"
+        class="form-control"
+    >
+
+        <option value="">
+            Select Class
+        </option>
+
+        {% for cls in classes %}
+
+        <option
+            value="{{ cls.id }}"
+        >
+
+            {{ cls.name }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <button
+        type="submit"
+        class="btn btn-primary mt-2"
+    >
+        Load Students
+    </button>
+
+</form>
+
+{% if students %}
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <input
+        type="hidden"
+        name="class"
+        value="{{ selected_class.id }}"
+    >
+
+    <div class="row mb-3">
+
+        <div class="col-md-6">
+
+            <label>Subject</label>
+
+            <select
+                name="subject"
+                class="form-control"
+                required
+            >
+
+                {% for subject in subjects %}
+
+                <option value="{{ subject.id }}">
+
+                    {{ subject.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label>Examination</label>
+
+            <select
+                name="exam"
+                class="form-control"
+                required
+            >
+
+                {% for exam in exams %}
+
+                <option value="{{ exam.id }}">
+
+                    {{ exam.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Student</th>
+
+                <th>CA Score</th>
+
+                <th>Exam Score</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for student in students %}
+
+            <tr>
+
+                <td>
+
+                    {{ student.first_name }}
+                    {{ student.last_name }}
+
+                </td>
+
+                <td>
+
+                    <input
+                        type="number"
+                        name="ca_{{ student.id }}"
+                        class="form-control"
+                        min="0"
+                        max="40"
+                    >
+
+                </td>
+
+                <td>
+
+                    <input
+                        type="number"
+                        name="exam_{{ student.id }}"
+                        class="form-control"
+                        min="0"
+                        max="60"
+                    >
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        Save All Results
+    </button>
+
+</form>
+
+{% endif %}
+
+{% endblock %}
